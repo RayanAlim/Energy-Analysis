@@ -1,0 +1,150 @@
+---
+title: "With great growth, comes greater Consumption: Energy consumption of countries around the world"
+subtitle: "An analysis of economic growth and Energy consumption globally"
+author: 
+  - Rayan Awad Alim
+thanks: "Code and data are available at: https://github.com/RayanAlim/Energy-Analysis"
+date: today
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+# Install Packages if not downloaded:
+install_if_missing <- function(package_name) {
+  if (!requireNamespace(package_name, quietly = TRUE)) {
+    install.packages(package_name)
+    suppressMessages(library(package_name, character.only = TRUE))
+  }
+}
+
+install_if_missing("readxl")
+install_if_missing("here")
+install_if_missing("dplyr")
+install_if_missing("ggplot2")
+install_if_missing("tidyr")
+install_if_missing("caret")
+```
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+# Load 
+library(readxl)
+library(here)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(caret)
+
+#Load Data 
+#data <- read.csv(here("data", "analysis_data", "IDMC_processed.csv"))
+```
+
+
+# Introduction
+
+Economic growth and energy consumption are deeply interlinked processes that influence each other in both direct and indirect ways. Historically, the economic output of a country has been closely tied to its energy usage, with periods of high growth accompanied by increases in energy consumption [@Stern-2006] This relationship is often conceptualized through the lens of the Energy-Economic Growth Nexus which posits that energy is a critical input in economic production and, conversely, economic growth can lead to increased energy consumption due to higher industrial activity, transportation needs, and residential and commercial usage [@SORRELL-2009].
+
+Several theoretical frameworks have been proposed to explain this nexus. The most prominent among them is the Jevons Paradox, which suggests that as technological advancements increase energy efficiency, the rate of consumption of that energy may actually increase as its effective cost decreases [@ALCOTT-2005]. Conversely, the Khazzoom-Brookes postulate extends this paradox to the macroeconomic level, arguing that increased energy efficiency may lead to faster economic growth, which in turn increases total energy demand [@Saunders-1992].
+
+Empirical studies have shown diverse results depending on the economic structure and developmental stage of the country in question. For developed nations, research has indicated a decoupling of energy consumption and economic growth, attributed to advances in energy efficiency and a shift towards service-oriented economies which are less energy-intensive [@OWEN-2006]. In contrast, developing countries tend to exhibit a strong correlation between energy consumption and GDP growth, driven by industrialization and infrastructure expansion which are highly energy-dependent (Bhattacharyya, 2011).
+
+The policy implications of these findings are significant, as they influence national energy strategies and their alignment with economic objectives. The transition towards sustainable energy sources is also a critical factor in this equation, with renewable energy adoption seen as a key element in sustaining long-term economic growth without the environmental degradation associated with fossil fuels (Markandya et al., 2009).
+
+Understanding the specific dynamics of energy consumption and economic growth within the context of a particular country requires a detailed examination of its economic policies, energy resources, and technological advancements. This paper aims to explore these themes within the context of countries globally, providing insights that may help in formulating strategies for sustainable economic and energy development.
+Bhattacharyya, S. C. (2011). Energy Economics: Concepts, Issues, Markets, and Governance. London: Springer-Verlag.
+Markandya, A., et al. (2009). What changes are needed in the way the financial markets allocate resources to sustainable energy. Energy Policy, 37(12), 4314-4317.
+
+# Data {#sec-data}
+
+
+
+Talk more about it.
+
+And also planes (. (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+
+
+Talk way more about it. 
+
+
+
+# Model
+
+The goal of our modelling strategy is twofold. Firstly,...
+
+Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+
+## Model set-up
+
+Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+
+\begin{align} 
+y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
+\mu_i &= \alpha + \beta_i + \gamma_i\\
+\alpha &\sim \mbox{Normal}(0, 2.5) \\
+\beta &\sim \mbox{Normal}(0, 2.5) \\
+\gamma &\sim \mbox{Normal}(0, 2.5) \\
+\sigma &\sim \mbox{Exponential}(1)
+\end{align}
+
+We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+
+
+### Model justification
+
+We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+
+We can use maths by including latex between dollar signs, for instance $\theta$.
+
+
+# Results
+
+
+
+
+
+# Discussion
+
+## First discussion point {#sec-first-point}
+
+If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+
+## Second discussion point
+
+## Third discussion point
+
+## Weaknesses and next steps
+
+Weaknesses and next steps should also be included.
+
+\newpage
+
+\appendix
+
+# Appendix {-}
+
+
+# Additional data details
+
+# Model details {#sec-model-details}
+
+## Posterior predictive check
+
+
+
+\newpage
+
+
+# References
+
+
