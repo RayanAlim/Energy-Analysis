@@ -40,7 +40,7 @@ bayesian_model <- stan_glm(
   iter = 2000  # Number of MCMC iterations per chain
 )
 
-## Summary of the model
+# Summary of the model
 model_summary <- summary(bayesian_model)
 
 # Print the complete model summary to inspect
@@ -55,9 +55,6 @@ if(is.list(model_summary)) {
   print(model_summary)
 }
 
-
-# Replace 'model_summary$coefficients' with 'coef_summary' if it's a list and correctly structured
-
 # Check names of coefficients
 if(exists("coef_summary")) {
   print(names(coef_summary))
@@ -68,31 +65,41 @@ if(exists("coef_summary")) {
 # Set color scheme for plots
 color_scheme_set("brightblue")
 
-# MCMC Trace Plot
-mcmc_trace(
+# Create a directory for the figures if it doesn't already exist
+if(!dir.exists("../figures")) {
+  dir.create("../figures")
+}
+
+# MCMC Trace Plot and save
+trace_plot <- mcmc_trace(
   bayesian_model,
   pars = c("(Intercept)", "Log_Energy_Consumption"),
   n_warmup = 1000
 )
+ggsave("../figures/mcmc_trace_plot.png", trace_plot, width = 10, height = 6)
 
-# Additional Diagnostic Plots
-# Posterior Predictive Checks
-pp_check(bayesian_model)
+# Posterior Predictive Checks and save
+pp_plot <- pp_check(bayesian_model)
+ggsave("../figures/pp_check_plot.png", pp_plot, width = 10, height = 6)
 
 # Plotting residuals
 posterior_predictions <- posterior_predict(bayesian_model)
 residuals <- countries_energy_GDP_data$Average_GDP_Growth - posterior_predictions
 
-# Basic plot of residuals
+# Basic plot of residuals and save
+png(file = "../figures/residuals_plot.png", width = 700, height = 432)
 plot(residuals, type = "p", main = "Residuals Plot")
+dev.off()
 
-# Using pairs plot 
+# Using pairs plot and save
 if(requireNamespace("bayesplot", quietly = TRUE)) {
-  mcmc_pairs(
+  pairs_plot <- mcmc_pairs(
     bayesian_model,
     pars = c("(Intercept)", "Log_Energy_Consumption")
   )
+  ggsave("../figures/pairs_plot.png", pairs_plot, width = 10, height = 6)
 }
+
 
 
 
