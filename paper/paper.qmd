@@ -177,21 +177,25 @@ We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use
 - **Independence**: Observations across years and countries are assumed to be independent of each other.
 - **Homoscedasticity**: The error terms are assumed to have constant variance across different levels of energy consumption.
 - **Linearity**: The relationship between GDP growth and energy consumption is presumed to be linear after appropriate transformations if required (e.g., logarithmic).
+
+
 # Results
 
 ## Data Results 
 
+These two graphs depict the trends in global economic activity and energy usage. The first graph shows how average GDP growth has changed over time, offering insights into economic trends. The second graph illustrates the total energy consumption across different income levels from 1992 to 2022, showing how economic status influences energy usage patterns.
 
-```{r, fig.cap = "Total GDP Growth of all copuntries Over Time 1992-2022", tab.width=5, echo=FALSE}
+
+```{r, fig.cap = "Total GDP Growth of all countries Over Time 1992-2022", tab.width=5, echo=FALSE}
 #| warning: false
 #| message: false
 
 ggplot(countries_energy_GDP_data, aes(x = Year, y = Average_GDP_Growth)) +
   geom_point(color="orange") +
-  labs(title = "Average GDP Growth Over Time for High Income Countries",
+  labs(title = "Average GDP Growth Over Time for All Countries",
        x = "Year",
        y = "GDP Growth (%)",
-       caption = "Data source: Your data source") +
+       caption = "Data source: World Bank National Accounts Data") +
   theme_minimal()
 
 ```
@@ -226,6 +230,12 @@ ggplot(income_group_energy_GDP_data, aes(x = Year, y = Total_Energy_Consumption_
 
 The statistical model employed in this analysis was constructed to ascertain the association between Average Gross Domestic Product (GDP) Growth and logarithmic transformation of Total Energy Consumption (TWh). Bayesian inference, implemented through Markov Chain Monte Carlo (MCMC) sampling, was utilized to estimate the posterior distributions of the model parameters. The stan_glm function in R, with a Gaussian family and identity link function, was used to facilitate the analysis, with a total posterior sample size of 4000.
 
+**Comparison of Observed Data and Model Predictions: Posterior Predictive Check**
+
+![](../figures/mcmc_trace_plot.png)
+
+**Figure** *Markov Chain Monte Carlo (MCMC) trace plots for the Bayesian linear regression model parameters. The left panel displays the trace for the model's intercept, and the right panel shows the trace for the coefficient of Log_Energy_Consumption. Each plot contains four overlaid chains (Chain 1 to Chain 4), illustrated in different shades of blue. The trace plots illustrate the sampling path of the chains through the parameter space over 1000 iterations post warm-up. The plots exhibit stable convergence and adequate mixing of the chains, suggesting that the sampling process has reached equilibrium and that the posterior distributions are well-estimated.*
+
 The primary variables included in the model were the intercept, representing the baseline level of GDP growth when energy consumption is at its logarithmic mean, and the coefficient for Log_Energy_Consumption, which indicates the degree of variability in GDP growth attributable to changes in energy consumption.
 
 The results from the Bayesian regression analysis yielded the following parameter estimates (summarized by their posterior mean and standard deviation, with 10%, 50% (median), and 90% quantiles):
@@ -238,6 +248,12 @@ The residual error of the model (sigma) was estimated at 6.3, with a relatively 
 
 The Mean Posterior Predictive Distribution (mean_PPD) of the outcome variable was estimated at 3.4, providing an aggregated measure of the model's predictions across all observations and serving as a diagnostic for the model's overall fit.
 
+**Comparison of Observed Data and Model Predictions: Posterior Predictive Check**
+
+![](../figures/pp_check_plot.png)
+
+**Figure** *Posterior predictive check plot comparing the observed values of the outcome variable (y, in dark blue) to the replicated data (yrep, in light blue) generated from the model's posterior distribution. The sharp peak and significant overlap between the observed and replicated distributions around the zero mark demonstrate that the model's predictions closely align with the observed data, indicating an adequate fit for the central tendency of the data. The tails of the distribution should be examined for potential discrepancies between observed and predicted values.* 
+
 Monte Carlo standard errors were found to be virtually zero for all parameters, indicating precision in the MCMC estimates. Effective sample sizes (n_eff) for the Intercept and Log_Energy_Consumption parameters were both over 4000, suggesting a sufficient number of independent samples were drawn to estimate the posterior distributions accurately. The potential scale reduction factor (Rhat) was at the optimal value of 1 for all parameters, indicating that convergence was achieved, and the chains mixed well.
 
 #### Trace and Posterior Distribution Plots
@@ -246,10 +262,19 @@ The trace plots for both the Intercept and Log_Energy_Consumption display the MC
 
 The posterior density plots for the Intercept and Log_Energy_Consumption exhibit peaked distributions centered around their respective mean estimates, confirming the point estimates presented earlier.
 
+**Posterior Distributions and Parameter Correlation for Bayesian Model of Energy Consumption and GDP Growth **
+
+![](../figures/pairs_plot.png)
+**Figure** *Pairs plot depicting the posterior distributions and bivariate relationships of the Bayesian linear regression model parameters. The diagonal panels show the density plots of the intercept (top left) and Log_Energy_Consumption (bottom right), both illustrating the posterior distribution of these parameters, which are unimodal and symmetric, suggesting precise estimates. The off-diagonal panels depict the scatterplot between the intercept and Log_Energy_Consumption with a fitted regression line, indicating a negligible correlation between the parameters, as shown by the horizontal trend of the fitted line and the even spread of points around it.*
+
 #### Residuals Analysis
 
 The residuals plot displays the spread of residuals against the predicted values, indicating the differences between observed and predicted GDP growth. The plot reveals a concentration of residuals around zero, suggesting a good model fit for most observations. However, a number of outliers can be observed, indicating instances where the model's predictions deviate substantially from the actual values. This warrants further investigation into potential sources of these discrepancies, such as non-linearity, omitted variable bias, or influential observations.
 
+**Residual Analysis of GDP Growth Predictions from Energy Consumption Model **
+
+![](../figures/residuals_plot.png)
+**Figure** *Scatter plot of the residuals from the Bayesian linear regression model. The residuals (the differences between observed and predicted values of Average GDP Growth) are plotted against the predicted values. The concentration of points around the horizontal axis (residuals of zero) indicates that the model generally fits the data well. However, the presence of points distant from the horizontal axis reflects outliers or instances where the model has significant predictive errors, suggesting areas where model assumptions may not hold or where further model refinement is necessary.*
 
 ## Weaknesses and next steps
 
