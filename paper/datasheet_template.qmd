@@ -1,13 +1,12 @@
 ---
-title: "Datasheet for 'A dataset'"
-subtitle: "My subtitle if needed"
+title: "Datasheet for Economic and Energy Consumption Trends: A Global Analysis"
+subtitle: "An Integrated Dataset of GDP Growth and Per Capita Energy Use (1965-2022)"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  -Rayan Awad Alim
+thanks: "Code and data are available at: https://github.com/RayanAlim/Energy-Analysis"
 date: "`r Sys.time()`"
 date-format: "D MMMM YYYY"
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This datasheet describes a dataset that integrates annual GDP growth data sourced from the World Bank and OECD National Accounts with per capita primary energy consumption figures obtained from the U.S. Energy Information Administration and the Energy Institute's Statistical Review of World Energy. Covering the period from 1965 to 2022, the dataset includes data for countries recognized by the UN during the years which the dataset covers. It was made to see the interplay between economic growth and energy us and was compiled and standardized to provide a reliable basis for econometric analysis, aiming to inform policy decisions and academic research in the fields of environmental economics and sustainable development."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -19,53 +18,72 @@ Extract of the questions from @gebru2021datasheets.
 **Motivation**
 
 1. *For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? Please provide a description.*
-    - The dataset was created to enable analysis of Australian politicians. We were unable to find a publicly available dataset in a structured format that had the biographical and political information on Australian politicians that was needed for modelling.
+    - The dataset was specifically created to examine the relationship between economic growth, measured through GDP growth rates, and energy consumption on a per capita basis across various countries and years. The intent was to analyse the link in economic metrics with energy usage statistics in an effort to understand how economic trends are related to energy consumption pattern.
+    
 2. *Who created the dataset (for example, which team, research group) and on behalf of which entity (for example, company, institution, organization)?*
-    - TBD
-3. *Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number.*
-    - TBD
+    - There are two datasets merged into one in this dataset. |The first dataset is from the  World Bank national accounts data, and OECD National Accounts data files and the second datset is from U.S. Energy Information Administration (2023), Energy Institute - Statistical Review of World Energy (2023), Population based on various sources (2023) – with major processing by Our World in Data. They were merged by Rayan Awad Alim, they were merged for research purposes and the above outlined motivation.
+    
+3. *Who funded the creation of the dat9aset? If there is an associated grant, please provide the name of the grantor and the grant name and number.*
+    - The collection of the data was funded by World Bank and Organisation for Economic Co-operation and Development (OCED).
+    
 4. *Any other comments?*
-    - TBD
+    - This dataset coule be particularly valuable for policymakers and researchers interested in the implications of economic policies on energy consumption and environmental impact.
 
 **Composition**
 
 1. *What do the instances that comprise the dataset represent (for example, documents, photos, people, countries)? Are there multiple types of instances (for example, movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description.*
-	- TBD
+	- Each instance in the dataset represents a country-year pair, with metrics for GDP growth and energy consumption per capita for that particular year and country
+	
 2. *How many instances are there in total (of each type, if appropriate)?*
-	- TBD
+	-     The dataset includes data from 1965 to 2022 for x countries, as well as by region. Each year's data for each country forms a unique instance in the dataset.
+	
 3. *Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set? If the dataset is a sample, then what is the larger set? Is the sample representative of the larger set (for example, geographic coverage)? If so, please describe how this representativeness was validated/verified. If it is not representative of the larger set, please describe why not (for example, to cover a more diverse range of instances, because instances were withheld or unavailable).*
-	- TBD
+	- The dataset is not a sample it includes all countrries recognized by the UN aqre accounted for.
+	
 4. *What data does each instance consist of? "Raw" data (for example, unprocessed text or images) or features? In either case, please provide a description.*
-	- TBD
+	- Each instance includes the following data points; Country name, Year, Annual GDP growth rate (percentage), Energy consumption per capita (kilowatt-hours per person)
+	
 5. *Is there a label or target associated with each instance? If so, please provide a description.*
-	- TBD
+	- There are no explicit labels or target variables as this dataset is designed for exploratory and inferential statistical analyses rather than predictive modeling.
+	
 6. *Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (for example, because it was unavailable). This does not include intentionally removed information, but might include, for example, redacted text.*
-	- TBD
+	- Some instances have missing data due to non-reporting countries or years where the data collection was not feasible. Missing data points are noted and are a dropped in the analysis to avoid biased interpretations.
+	
 7. *Are relationships between individual instances made explicit (for example, users' movie ratings, social network links)? If so, please describe how these relationships are made explicit.*
-	- TBD
+	- The dataset primarily represents independent instances without explicit relational data between them
+	
 8. *Are there recommended data splits (for example, training, development/validation, testing)? If so, please provide a description of these splits, explaining the rationale behind them.*
-	- TBD
+	- N/A
+	
 9. *Are there any errors, sources of noise, or redundancies in the dataset? If so, please provide a description.*
-	- TBD
+	- Some country names werew spelled differenltly, but they were standardized using their ISO3 names. 
+	
 10. *Is the dataset self-contained, or does it link to or otherwise rely on external resources (for example, websites, tweets, other datasets)? If it links to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (that is, including the external resources as they existed at the time the dataset was created); c) are there any restrictions (for example, licenses, fees) associated with any of the external resources that might apply to a dataset consumer? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate.*
-	- TBD
+	- The dataset is self-contained with regards to the information it provides. External links to the data sources are maintained for verification and detailed reference but are not necessary for the primary analysis tasks the dataset is intended to do
+	
 11. *Does the dataset contain data that might be considered confidential (for example, data that is protected by legal privilege or by doctor-patient confidentiality, data that includes the content of individuals' non-public communications)? If so, please provide a description.*
-	- TBD
+	- No
+	
 12. *Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety? If so, please describe why.*
-	- TBD
+	- No. 
+	
 13. *Does the dataset identify any sub-populations (for example, by age, gender)? If so, please describe how these subpopulations are identified and provide a description of their respective distributions within the dataset.*
-	- TBD
+	- yes, it identifies regions for country clusters, eg africa, north africa, middle east etc
+	
 14. *Is it possible to identify individuals (that is, one or more natural persons), either directly or indirectly (that is, in combination with other data) from the dataset? If so, please describe how.*
-	- TBD
+	- No.
+	
 15. *Does the dataset contain data that might be considered sensitive in any way (for example, data that reveals race or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)? If so, please provide a description.*
-	- TBD
+	- No
+	
 16. *Any other comments?*
-	- TBD
+	- N/A
 
 **Collection process**
 
 1. *How was the data associated with each instance acquired? Was the data directly observable (for example, raw text, movie ratings), reported by subjects (for example, survey responses), or indirectly inferred/derived from other data (for example, part-of-speech tags, model-based guesses for age or language)? If the data was reported by subjects or indirectly inferred/derived from other data, was the data validated/verified? If so, please describe how.*
 	- TBD
+	
 2. *What mechanisms or procedures were used to collect the data (for example, hardware apparatuses or sensors, manual human curation, software programs, software APIs)? How were these mechanisms or procedures validated?*
 	- TBD
 3. *If the dataset is a sample from a larger set, what was the sampling strategy (for example, deterministic, probabilistic with specific sampling probabilities)?*
