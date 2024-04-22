@@ -1,6 +1,6 @@
 ---
-title: "With great growth, comes greater Consumption: Energy consumption of countries around the world"
-subtitle: "An analysis of economic growth and Energy consumption globally"
+title: "With Great Growth, Comes Greater Consumption: Energy consumption of countries around the world inb relation to their GDP growth"
+subtitle: "An analysis of economic growth and Energy consumption globally between 1992 to 2022"
 author: 
   - Rayan Awad Alim
 thanks: "Code and data are available at: https://github.com/RayanAlim/Energy-Analysis"
