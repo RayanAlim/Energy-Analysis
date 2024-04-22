@@ -252,7 +252,7 @@ This datasheet presents a dataset combining annual GDP growth data from the Worl
 	- TBD
 	
 3. *Is the software that was used to preprocess/clean/label the data available? If so, please provide a link or other access point.*
-	- R language [@citeR]
+	- The programming software R [@citeR].
 	
 **Uses**
 
