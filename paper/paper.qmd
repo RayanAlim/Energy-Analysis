@@ -1,6 +1,6 @@
 ---
-title: "With Great Growth, Comes Greater Consumption: Energy consumption of countries around the world inb relation to their GDP growth"
-subtitle: "An analysis of economic growth and Energy consumption globally between 1992 to 2022"
+title: "With Great Growth, Comes Greater Consumption: Energy Consumption of Countries Around the world in Relation to Their annual GDP growth"
+subtitle: "An analysis of economic growth and energy consumption globally between 1992 to 2022"
 author: 
   - Rayan Awad Alim
 thanks: "Code and data are available at: https://github.com/RayanAlim/Energy-Analysis"
@@ -33,6 +33,8 @@ install_if_missing("ggplot2")
 install_if_missing("kableExtra")
 install_if_missing("tidyr")
 install_if_missing("caret")
+install_if_missing("tinytex")
+
 ```
 
 ```{r}
@@ -48,13 +50,19 @@ library(ggplot2)
 library(kableExtra)
 library(tidyr)
 library(caret)
+library(tinytex)
 
 #Load Data 
-#data <- read.csv(here("data", "analysis_data", "IDMC_processed.csv"))
+countries_energy_GDP_data <- read.csv(here("data", "analysis_data", "countries_energy_GDP_data.csv"))
+
+income_group_energy_GDP_data <-
+  read.csv(here("data", "analysis_data", "income_group_energy_GDP_data.csv"))
 ```
 
 
 # Introduction
+
+## Background And Literature Review
 
 Economic growth and energy consumption are deeply interlinked processes that influence each other in both direct and indirect ways. Historically, the economic output of a country has been closely tied to its energy usage, with periods of high growth accompanied by increases in energy consumption [@Stern-2006] This relationship is often conceptualized through the lens of the Energy-Economic Growth Nexus which posits that energy is a critical input in economic production and, conversely, economic growth can lead to increased energy consumption due to higher industrial activity, transportation needs, and residential and commercial usage [@SORRELL-2009].
 
@@ -62,53 +70,158 @@ Several theoretical frameworks have been proposed to explain this nexus. The mos
 
 Empirical studies have shown diverse results depending on the economic structure and developmental stage of the country in question. For developed nations, research has indicated a decoupling of energy consumption and economic growth, attributed to advances in energy efficiency and a shift towards service-oriented economies which are less energy-intensive [@OWEN-2006]. In contrast, developing countries tend to exhibit a strong correlation between energy consumption and GDP growth, driven by industrialization and infrastructure expansion which are highly energy-dependent [@Bhattacharyya-2019].
 
+## Motivation
 The policy implications of these findings are significant, as they influence national energy strategies and their alignment with economic objectives. The transition towards sustainable energy sources is also a critical factor in this equation, with renewable energy adoption seen as a key element in sustaining long-term economic growth without the environmental degradation associated with fossil fuels [@Wei-2023].
 
 Understanding the specific dynamics of energy consumption and economic growth within the context of a particular country requires a detailed examination of its economic policies, energy resources, and technological advancements. This paper aims to explore these themes within the context of countries globally, providing insights that may help in formulating strategies for sustainable economic and energy development.
 
 # Data {#sec-data}
 
+## Dataset
 
 ## Variables
 
-## Dataset
+The first dataset has the following variables shown in Table 1:
+**Entity**
+**Year**
+**Total_Energy_Consumption_TWh**
+**Average_GDP_Growth**
 
+```{r, tab.cap = "Sample of countries Energy Consumption and GDP Growth Dataset", tab.width=5, echo=FALSE}
+#| warning: false
+#| message: false
 
+countries_energy_GDP_data %>%
+  select(Entity, Year, Total_Energy_Consumption_TWh, Average_GDP_Growth) %>%
+  arrange(Entity) %>%
+  slice(1:10) %>%
+  kable(
+    caption = "First ten rows of a dataset countries energy consumption and gdp growth",
+    col.names = c("Country", "Year", "Energy Consumption (TWH)", "GDP Growth %"),
+    digits = 1,
+    booktabs = TRUE, 
+    linesep = ""
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
+From the first dataset, we create a secoind one that is segmented by income level, it has has the following variables, a sample of 10 enteries is shown in Table 2:
+**Standardized_Entity**
+**Year**
+**Total_Energy_Consumption_TWh**
+**Average_GDP_Growth**
+
+```{r, tab.cap = "Sample of countries grouped by income level and their Energy Consumption and GDP Growth Dataset from 1992-2022", tab.width=5, echo=FALSE}
+#| warning: false
+#| message: false
+
+income_group_energy_GDP_data %>%
+  select(Standardized_Entity, Year, Total_Energy_Consumption_TWh, Average_GDP_Growth) %>%
+  arrange(Standardized_Entity) %>%
+  slice(1:10) %>%
+  kable(
+    caption = "First ten rows of a dataset countries grouped by income level energy consumption and gdp growth",
+    col.names = c("Income level group", "Year", "Energy Consumption (TWH)", "GDP Growth %"),
+    digits = 1,
+    booktabs = TRUE, 
+    linesep = ""
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"))
+
+```
 
 ## Plots
 
 
 # Model
 
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+Our models goal is to  to understand the dynamics between energy consumption and economic growth across various nations and years. Recognizing the critical role of energy in economic development, this analysis seeks to quantify the extent to which changes in energy consumption influence GDP growth.
 
 ## Model set-up
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+We make use of a linear regression model to investigate this relationship, formalized as follows:
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
+$$
+GDP\_growth_{it} = \beta_0 + \beta_1 \times Energy\_consumption_{it} + \epsilon_{it}
+$$
+
+Where:
+
+$$GDP\_growth_{it}$$
+- The GDP growth rate (%) for country \(i\) in year \(t\).
+$$Energy\_consumption_{it}$$
+- The primary energy consumption (in terawatt-hours, TWh) for country \(i\) in year \(t\).
+ $$\beta_0$$
+ - The intercept term, representing the baseline GDP growth when energy consumption is zero.
+$$\beta_1$$
+- The coefficient of energy consumption, reflecting the change in GDP growth rate associated with a one-unit increase in energy consumption.
+$$\epsilon_{it}$$
+- The error term, capturing all other factors affecting GDP growth not included in the model.
+
 
 We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
 
 
 ### Model justification
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+- **Linear Assumption**: Preliminary data exploration suggested a potential linear relationship between the logarithm of energy consumption and GDP growth rates. This linear model provides a clear and interpretable framework to estimate the sensitivity of economic growth to changes in energy usage.
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
+- **Economic Rationale**: Theoretically, energy is a fundamental input in production processes; thus, variations in energy supply are expected to directly impact economic output and growth. The linear regression model allows us to quantify this impact and provide insights valuable for policy formulation.
+
+- **Statistical Considerations**: Linear regression is robust, widely understood, and provides comprehensive diagnostic tools to check for model assumptions. It serves as an excellent preliminary analytical tool, especially when the relationship does not involve complex interactions or non-linear dynamics.
 
 
+### Model justification
+
+- **Normality**: We assume the residuals of the regression, \( \epsilon_{it} \), are normally distributed, facilitating the use of classical statistical tests for hypothesis testing (e.g., t-tests for coefficients).
+- **Independence**: Observations across years and countries are assumed to be independent of each other.
+- **Homoscedasticity**: The error terms are assumed to have constant variance across different levels of energy consumption.
+- **Linearity**: The relationship between GDP growth and energy consumption is presumed to be linear after appropriate transformations if required (e.g., logarithmic).
 # Results
 
+## Data Results 
+
+
+```{r, fig.cap = "Total GDP Growth of all copuntries Over Time 1992-2022", tab.width=5, echo=FALSE}
+#| warning: false
+#| message: false
+
+ggplot(countries_energy_GDP_data, aes(x = Year, y = Average_GDP_Growth)) +
+  geom_point(color="orange") +
+  labs(title = "Average GDP Growth Over Time for High Income Countries",
+       x = "Year",
+       y = "GDP Growth (%)",
+       caption = "Data source: Your data source") +
+  theme_minimal()
+
+```
+
+```{r, fig.cap = "Total Energy Consumption Over Time 1992-2022", tab.width=5, echo=FALSE}
+#| warning: false
+#| message: false
+
+# Define colors for each standardized entity
+color_map <- c("High Income" = "blue", "Upper Middle Income" = "green",
+               "Lower Middle Income" = "orange", "Low Income" = "red")
+
+# Plotting Total Energy Consumption over time by income group
+ggplot(income_group_energy_GDP_data, aes(x = Year, y = Total_Energy_Consumption_TWh, color = Standardized_Entity)) +
+  geom_line(size = 1.2) +  # Using thicker lines for better visibility
+  scale_color_manual(values = color_map) +
+  labs(title = "Total Energy Consumption Over Time (1992-2022)",
+       subtitle = "Data grouped by income level",
+       x = "Year",
+       y = "Total Energy Consumption (TWh)",
+       color = "Income Group") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        plot.title = element_text(face = "bold", size = 14),
+        plot.subtitle = element_text(face = "italic"),
+        text = element_text(size = 12))
+```
+
+
+## Model Results 
 
 
 
