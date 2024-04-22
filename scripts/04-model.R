@@ -1,26 +1,37 @@
 #### Preamble ####
-# Purpose: Models... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Fits a Bayesian linear regression model to assess the relationship between the average GDP growth and logarithmically transformed total energy consumption.
+# Author: Rayan Awad Alim
+# Date: 21 April 2024
+# Contact: rayan.alim@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: rstanarm, bayesplot, rstan
+# Any other information needed? The model is saved in the models directory as bayesian_model.rds
 
 
 #### Workspace setup ####
 library(tidyverse)
-library(rstanarm)
 
 if (!requireNamespace("rstanarm", quietly = TRUE)) {
   install.packages("rstanarm")
 }
 
-library(rstanarm)
+# Install rstan from CRAN
+if (!requireNamespace("rstan", quietly = TRUE)) {
+  install.packages("rstan")
+}
+# Install bayesplot if it's not already installed
+if (!requireNamespace("bayesplot", quietly = TRUE)) {
+  install.packages("bayesplot")
+}
+
+# Load the package
+library(rstanarm)  # for Bayesian models
+library(bayesplot) # for plotting Bayesian analysis results
+library(ggplot2)   # for plotting
 
 
 #### Read data ####
-countries_energy_GDP_data <- read_csv("data/analysis_data/countries_energy_GDP_data.csv")
+countries_energy_GDP_data <- read_csv("../data/analysis_data/countries_energy_GDP_data.csv")
 
 ### Model data ####
 
