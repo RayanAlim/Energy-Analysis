@@ -6,7 +6,7 @@ author:
 thanks: "Code and data are available at: https://github.com/RayanAlim/Energy-Analysis"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This study explores the relationship between energy consumption and GDP growth across various income levels from 1992 to 2022 using a linear regression model. By integrating global data on energy usage in terawatt-hours and economic performance, preliminary results suggest a positive correlation between increased energy consumption and GDP growth, particularly in lower-income countries driven by industrialization. In contrast, high-income regions exhibit a nuanced relationship, possibly due to advanced energy efficiencies and shifts towards service-oriented economies. These findings emphasize the need for energy-aware economic policies that align with sustainable development goals, highlighting differentiated strategies for income groups in the face of global environmental challenges"
 format: pdf
 number-sections: true
 toc: true
@@ -79,6 +79,8 @@ Understanding the specific dynamics of energy consumption and economic growth wi
 
 ## Dataset
 
+The dataset used in this study encompasses annual data from 1992 to 2022, sourced from reputable international databases including the World Bank, OECD National Accounts, U.S. Energy Information Administration, and the Energy Institute's Statistical Review of World Energy. It comprises information on GDP growth rates and total energy consumption, measured in terawatt-hours (TWh), for a diverse set of countries globally. The dataset is organized by country-year pairs, enabling analyses of the relationship between economic growth and energy usage across different income levels. Quality assurance measures were implemented to handle missing data and ensure consistency across variables, all data handling, explained in datasheet in appendix A.
+
 ## Variables
 
 The first dataset has the following variables shown in Table 1:
@@ -129,8 +131,6 @@ income_group_energy_GDP_data %>%
   kable_styling(latex_options = c("striped", "scale_down"))
 
 ```
-
-## Plots
 
 
 # Model
@@ -220,23 +220,36 @@ ggplot(income_group_energy_GDP_data, aes(x = Year, y = Total_Energy_Consumption_
         text = element_text(size = 12))
 ```
 
+## Model Results and Discussion 
 
-## Model Results 
+#### Model Estimation and Diagnostics
 
+The statistical model employed in this analysis was constructed to ascertain the association between Average Gross Domestic Product (GDP) Growth and logarithmic transformation of Total Energy Consumption (TWh). Bayesian inference, implemented through Markov Chain Monte Carlo (MCMC) sampling, was utilized to estimate the posterior distributions of the model parameters. The stan_glm function in R, with a Gaussian family and identity link function, was used to facilitate the analysis, with a total posterior sample size of 4000.
 
+The primary variables included in the model were the intercept, representing the baseline level of GDP growth when energy consumption is at its logarithmic mean, and the coefficient for Log_Energy_Consumption, which indicates the degree of variability in GDP growth attributable to changes in energy consumption.
 
+The results from the Bayesian regression analysis yielded the following parameter estimates (summarized by their posterior mean and standard deviation, with 10%, 50% (median), and 90% quantiles):
+- The Intercept was estimated at 3.5, with a standard deviation of 0.2.
+- The coefficient for Log_Energy_Consumption was centered around 0, with an effectively negligible standard deviation, indicating little to no linear effect of energy consumption on GDP growth in the model.
 
-# Discussion
+The residual error of the model (sigma) was estimated at 6.3, with a relatively small standard deviation, reflecting a consistent level of variability in GDP growth that is unexplained by the model.
 
-## Data and Model Findings
+#### Diagnostic Measures and Model Fit
 
-### First discussion point {#sec-first-point}
+The Mean Posterior Predictive Distribution (mean_PPD) of the outcome variable was estimated at 3.4, providing an aggregated measure of the model's predictions across all observations and serving as a diagnostic for the model's overall fit.
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+Monte Carlo standard errors were found to be virtually zero for all parameters, indicating precision in the MCMC estimates. Effective sample sizes (n_eff) for the Intercept and Log_Energy_Consumption parameters were both over 4000, suggesting a sufficient number of independent samples were drawn to estimate the posterior distributions accurately. The potential scale reduction factor (Rhat) was at the optimal value of 1 for all parameters, indicating that convergence was achieved, and the chains mixed well.
 
-### Second discussion point
+#### Trace and Posterior Distribution Plots
 
-### Third discussion point
+The trace plots for both the Intercept and Log_Energy_Consumption display the MCMC sampling paths over iterations, showing dense and well-mixed chains, which are indicative of good convergence properties and reliable posterior estimates. These graphical diagnostics support the numerical evidence from the Rhat statistics.
+
+The posterior density plots for the Intercept and Log_Energy_Consumption exhibit peaked distributions centered around their respective mean estimates, confirming the point estimates presented earlier.
+
+#### Residuals Analysis
+
+The residuals plot displays the spread of residuals against the predicted values, indicating the differences between observed and predicted GDP growth. The plot reveals a concentration of residuals around zero, suggesting a good model fit for most observations. However, a number of outliers can be observed, indicating instances where the model's predictions deviate substantially from the actual values. This warrants further investigation into potential sources of these discrepancies, such as non-linearity, omitted variable bias, or influential observations.
+
 
 ## Weaknesses and next steps
 
@@ -252,10 +265,6 @@ Weaknesses and next steps should also be included.
 ## Datasheet
 
 Extract of the questions from @gebru2021datasheets.
-Extract of the questions from @gebru2021datasheets.
-Datasets used to create this datsetet are: [@citeEnergyConsumption2023] and [@]
-
-
 
 **Dataset Abstract**
 
