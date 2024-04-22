@@ -1,9 +1,9 @@
-# Starter folder
+# With Great Growth, Comes Greater Consumption: Energy Consumption of Countries Around the world in Relation to Their annual GDP growth
+An analysis of economic growth and energy consumption globally between 1992 to 2022
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
-
+This study explores the relationship between energy consumption and GDP growth across various income levels from 1992 to 2022 using a linear regression model. By integrating global data on energy usage in terawatt-hours and economic performance, preliminary results suggest a positive correlation between increased energy consumption and GDP growth, particularly in lower-income countries driven by industrialization. In contrast, high-income regions exhibit a nuanced relationship, possibly due to advanced energy efficiencies and shifts towards service-oriented economies. These findings emphasize the need for energy-aware economic policies that align with sustainable development goals, highlighting differentiated strategies for income groups in the face of global environmental challenge
 
 ## File Structure
 
@@ -19,12 +19,4 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
-
-## Some checks
-
-- [ ] Change the rproj file name so that it's not starter_folder.Rproj
-- [ ] Change the README title so that it's not Starter folder
-- [ ] Remove files that you're not using
-- [ ] Update comments in R scripts
-- [ ] Remove this checklist
+No Large Language Models (LLMs) were utilized in the creation or analysis of this project, "code re-format" tool in RStudio was used for formatting.
