@@ -253,7 +253,29 @@ The residuals plot displays the spread of residuals against the predicted values
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
+# Model Complexity
+
+The linear regression model employed in this analysis assumes a linear relationship between energy consumption and GDP growth. However, the actual relationship may be more complex, involving non-linear dynamics or interaction effects. Future studies could explore better modeling technique to capture these complexities.
+
+# Causality and Endogeneity
+
+While the analysis identifies correlations between energy consumption and GDP growth, establishing causality requires careful consideration of potential endogeneity issues. Future research could employ instrumental variable approaches or quasi-experimental designs to mitigate endogeneity bias and provide more robust causal inference.
+
+# Temporal Dynamics
+
+The analysis spans from 1992 to 2022, capturing trends over time. However, economic and energy policies, technological advancements, and global events may influence the relationship between energy consumption and GDP growth differently across different time periods. Future research could explore temporal dynamics and structural breaks to understand how the relationship evolves over time.
+
+# Policy Implications
+
+The study highlights the need for energy-aware economic policies aligned with sustainable development goals. However, translating research findings into actionable policy recommendations requires careful consideration of political, social, and economic contexts. Future research could involve policy simulations or scenario analyses to evaluate the potential impacts of different policy interventions on energy consumption and economic growth.
+
+# Environmental Considerations
+
+While economic growth is important, it is essential to consider environmental sustainability and climate change implications associated with increased energy consumption. Future research could integrate environmental indicators and assess trade-offs between economic development and environmental conservation to inform more holistic policymaking.
+
+# Cross-Country Variations
+
+The analysis aggregates data across countries, masking a very big amount of heterogeneity in the relationship between energy consumption and GDP growth across different regions and income levels. Future research could conduct subgroup analyses or country-specific studies to better understand variations in this relationship and tailor policy recommendations accordingly.
 
 \newpage
 
@@ -397,17 +419,11 @@ This datasheet presents a dataset combining annual GDP growth data from the Worl
 
 7. *If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so? If so, please provide a description. Will these contributions be validated/verified? If so, please describe how. If not, why not? Is there a process for communicating/distributing these contributions to dataset consumers? If so, please provide a description.*
 	- - The authors do not intend to maintain this dataset, but it will exist in the following github repo which has an MIT license for others to use  https://github.com/RayanAlim/Energy-Analysis/.
-	
-\newpage
+
 \newpage
 
-
-# Additional data details
 
 # Model details {#sec-model-details}
-
-## Posterior predictive check
-
 
 
 \newpage
